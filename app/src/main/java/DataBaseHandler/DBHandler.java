@@ -71,7 +71,7 @@ public class DBHandler extends SQLiteOpenHelper  {
 
             //Log message to keep track of things
             Log.d("test","Deleted ");
-            
+
             // Closing the file
             obj.close();
         }
