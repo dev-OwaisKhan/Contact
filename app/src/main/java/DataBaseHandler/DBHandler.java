@@ -2,9 +2,13 @@ package DataBaseHandler;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.Contact;
 import Params.Param;
@@ -22,8 +26,8 @@ public class DBHandler extends SQLiteOpenHelper  {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
             /* Writing the sql query */
-            String create  = "CREATE TABLE " + Param.TABLE_NAME + "(" + Param.Key_id+ " INTEGER PRIMARY KEY, "
-                    + Param.Key_name + " TEXT, "+ Param.Key_phone + " TEXT" + ")";
+            String create  = "CREATE TABLE " + Param.TABLE_NAME + "(" + Param.KEY_ID+ " INTEGER PRIMARY KEY, "
+                    + Param.KEY_NAME + " TEXT, "+ Param.KEY_PHONE + " TEXT" + ")";
             sqLiteDatabase.execSQL(create);
 
 
@@ -45,8 +49,8 @@ public class DBHandler extends SQLiteOpenHelper  {
 
             // A variable to store the values which need to be inserted
             ContentValues values = new ContentValues();
-            values.put(Param.Key_name,contact.getName());
-            values.put(Param.Key_phone,contact.getPhone());
+            values.put(Param.KEY_NAME,contact.getName());
+            values.put(Param.KEY_PHONE,contact.getPhone());
 
             // Adding/Inserting values into the table
             obj.insert(Param.TABLE_NAME,null,values);
@@ -62,9 +66,12 @@ public class DBHandler extends SQLiteOpenHelper  {
             SQLiteDatabase obj = this.getWritableDatabase();
 
             // Using delete method
-            obj.delete(Param.TABLE_NAME,Param.Key_id + "=?",
+            obj.delete(Param.TABLE_NAME,Param.KEY_ID + "=?",
                     new String[]{String.valueOf(id)} );
 
+            //Log message to keep track of things
+            Log.d("test","Deleted ");
+            
             // Closing the file
             obj.close();
         }
@@ -78,11 +85,11 @@ public class DBHandler extends SQLiteOpenHelper  {
 
             // A variable to store the values which need to be updated
             ContentValues values = new ContentValues();
-            values.put(Param.Key_name,contact.getName());
-            values.put(Param.Key_phone,contact.getPhone());
+            values.put(Param.KEY_NAME,contact.getName());
+            values.put(Param.KEY_PHONE,contact.getPhone());
 
             // Using update method
-            res = obj.update(Param.TABLE_NAME, values, Param.Key_id+ "=?",
+            res = obj.update(Param.TABLE_NAME, values, Param.KEY_ID+ "=?",
                     new String[]{String.valueOf(contact.getId())});
 
             // Closing the file
@@ -90,6 +97,32 @@ public class DBHandler extends SQLiteOpenHelper  {
             return res;
         }
 
+        /* Method to retrieve all the contacts */
+        public List<Contact> all_contact()
+        {
+            // List to store the contacts
+            List <Contact> contactList = new ArrayList<>();
+            SQLiteDatabase obj = this.getReadableDatabase();
+
+            // Query to select all the entries from the database
+            String select = "SELECT * FROM "+Param.TABLE_NAME;
+
+            // Cursor to iterate over the query
+            Cursor cursor = obj.rawQuery(select,null);
+
+            if (cursor.moveToFirst())
+            {
+                do {
+                    Contact contact = new Contact();
+                    contact.setId(Integer.parseInt(cursor.getString(0)));
+                    contact.setName(cursor.getString(1));
+                    contact.setPhone(cursor.getString(2));
+                }while(cursor.moveToNext());
+            }
+
+            // Returning the list
+            return contactList;
+        }
     }
 
 

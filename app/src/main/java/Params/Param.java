@@ -9,9 +9,9 @@ public class Param {
         public static final String TABLE_NAME = "CONTACTS";
 
         /** ALL THE BASIC TABLE PARAMETERS */
-        public static final int Key_id = 1;
-        public static final String Key_name = "name";
-        public static final String Key_phone = "phone";
+        public static final String KEY_ID = "id";
+        public static final String KEY_NAME = "name";
+        public static final String KEY_PHONE = "phone";
 
     }
 
