@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
