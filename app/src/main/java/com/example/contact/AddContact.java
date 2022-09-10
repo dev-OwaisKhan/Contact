@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import DataBaseHandler.DBHandler;
@@ -14,7 +15,8 @@ import Model.Contact;
 public class AddContact extends AppCompatActivity {
 
     EditText name, phone;
-    Button okay, cancel;
+    Button okay;
+    ImageButton cancel;
     DBHandler obj = new DBHandler(AddContact.this);
     Contact ob = new Contact();
     @Override
