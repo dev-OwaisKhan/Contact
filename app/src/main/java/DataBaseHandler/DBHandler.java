@@ -26,8 +26,8 @@ public class DBHandler extends SQLiteOpenHelper  {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
             /* Writing the sql query */
-            String create  = "CREATE TABLE " + Param.TABLE_NAME + "(" + Param.KEY_ID+ " INTEGER PRIMARY KEY, "
-                    + Param.KEY_NAME + " TEXT, "+ Param.KEY_PHONE + " TEXT" + ")";
+            String create  = "CREATE TABLE " + Param.TABLE_NAME + " ( " + Param.KEY_ID+ " INTEGER PRIMARY KEY, "
+                    + Param.KEY_NAME + " TEXT, "+ Param.KEY_PHONE + " TEXT)";
             sqLiteDatabase.execSQL(create);
 
 
@@ -54,6 +54,9 @@ public class DBHandler extends SQLiteOpenHelper  {
 
             // Adding/Inserting values into the table
             obj.insert(Param.TABLE_NAME,null,values);
+
+            //Log message
+            Log.d("test","added");
 
             // Closing the file
             obj.close();
@@ -119,7 +122,7 @@ public class DBHandler extends SQLiteOpenHelper  {
                     contact.setPhone(cursor.getString(2));
                 }while(cursor.moveToNext());
             }
-
+           Log.d("test","run oup");
             // Returning the list
             return contactList;
         }

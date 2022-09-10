@@ -1,10 +1,14 @@
 package com.example.contact;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -23,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton add;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    private ArrayList<Contact> contactArrayList;
+    ArrayList<Contact> contactArrayList;
     private ArrayAdapter<String> arrayAdapter;
 
     @Override
@@ -33,20 +37,43 @@ public class HomeActivity extends AppCompatActivity {
 
         // Object of the DBHandler class to perform all the DataBase Operations
         DBHandler obj = new DBHandler(HomeActivity.this);
+        Contact contacta = new Contact();
+        contacta.setName("Owais");
+        contacta.setPhone("1234569870");
+        obj.add(contacta);
 
         // Initializing the button and the recyclerView
-        add = findViewById(R.id.add);
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this,);
-        contactArrayList = new ArrayList<>();
+        add = findViewById(R.id.home_add);
+        recyclerView = findViewById(R.id.home_recyclerview);
 
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        contactArrayList = new ArrayList<>();
         List<Contact> contactList = obj.all_contact();
+        Log.d("hhhhh","kkoko");
         for(Contact contact : contactList)
         {
             contactArrayList.add(contact);
+            Log.d("owais","id" +contact.getId()+"\n"+
+                    "Name " +contact.getName()+ "\n"+
+                    "Phone Number " +contact.getPhone());
+
         }
 
-        recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this,contactArrayList);
+
+
+
+        recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this, contactArrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
+
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (HomeActivity.this,AddContact.class);
+                startActivity(intent);
+            }
+        });
     }
 }
