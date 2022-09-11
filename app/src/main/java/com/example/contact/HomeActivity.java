@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Contact> contactArrayList;
-    private ArrayAdapter<String> arrayAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +52,8 @@ public class HomeActivity extends AppCompatActivity {
         contactArrayList = new ArrayList<>();
         List<Contact> contactList = obj.all_contact();
         Log.d("hhhhh","kkoko");
-        for(Contact contact : contactList)
-        {
-            contactArrayList.add(contact);
-            Log.d("owais","id" +contact.getId()+"\n"+
-                    "Name " +contact.getName()+ "\n"+
-                    "Phone Number " +contact.getPhone());
-
-        }
-
-
-
+        contactArrayList.addAll(contactList);
+        Log.d("test",""+contactArrayList.size());
 
         recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this, contactArrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
