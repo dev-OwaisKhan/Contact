@@ -25,8 +25,8 @@ import RecyclerViewAdapter.RecyclerViewAdapter;
 public class HomeActivity extends AppCompatActivity {
 
     private FloatingActionButton add;
-    private RecyclerView recyclerView;
-    private RecyclerViewAdapter recyclerViewAdapter;
+    RecyclerView recyclerView;
+    RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Contact> contactArrayList;
 
 
@@ -37,10 +37,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // Object of the DBHandler class to perform all the DataBase Operations
         DBHandler obj = new DBHandler(HomeActivity.this);
-        Contact contacta = new Contact();
-        contacta.setName("Owais");
-        contacta.setPhone("1234569870");
-        obj.add(contacta);
 
         // Initializing the button and the recyclerView
         add = findViewById(R.id.home_add);
@@ -51,9 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
         contactArrayList = new ArrayList<>();
         List<Contact> contactList = obj.all_contact();
-        Log.d("hhhhh","kkoko");
         contactArrayList.addAll(contactList);
-        Log.d("test",""+contactArrayList.size());
 
         recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this, contactArrayList);
         recyclerView.setAdapter(recyclerViewAdapter);

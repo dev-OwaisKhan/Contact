@@ -2,12 +2,15 @@ package com.example.contact;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import DataBaseHandler.DBHandler;
 import Model.Contact;
@@ -19,6 +22,7 @@ public class AddContact extends AppCompatActivity {
     ImageButton cancel;
     DBHandler obj = new DBHandler(AddContact.this);
     Contact ob = new Contact();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,7 @@ public class AddContact extends AppCompatActivity {
         phone = findViewById(R.id.add_phone);
         okay = findViewById(R.id.add_okay);
         cancel = findViewById(R.id.add_cancel);
+
 
         okay.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -120,9 +120,12 @@ public class DBHandler extends SQLiteOpenHelper  {
                     contact.setId(Integer.parseInt(cursor.getString(0)));
                     contact.setName(cursor.getString(1));
                     contact.setPhone(cursor.getString(2));
+                    contactList.add(contact);
                 }while(cursor.moveToNext());
             }
            Log.d("test","run oup");
+           Log.d("test","run oup"+contactList.size());
+            obj.close();
             // Returning the list
             return contactList;
         }
