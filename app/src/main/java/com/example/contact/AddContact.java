@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import DataBaseHandler.DBHandler;
 import Model.Contact;
@@ -22,6 +23,7 @@ public class AddContact extends AppCompatActivity {
     ImageButton cancel;
     DBHandler obj = new DBHandler(AddContact.this);
     Contact ob = new Contact();
+    HomeActivity abc = new HomeActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,18 @@ public class AddContact extends AppCompatActivity {
                 }
                 else
                 {
-                ob.setName(name.getText().toString());
-                ob.setPhone(phone.getText().toString());
-                obj.add(ob);
-                Toast message = Toast.makeText(AddContact.this,"Contact Added",Toast.LENGTH_SHORT);
-                message.show();
-                finish();
+                    String name_text = name.getText().toString();
+                    String phone_text = phone.getText().toString();
+                    ob.setName(name_text);
+                    ob.setPhone(phone_text);
+                    obj.add(ob);
+                    Toast message = Toast.makeText(AddContact.this,"Contact Added",Toast.LENGTH_SHORT);
+                    message.show();
+                    Intent intent = new Intent(AddContact.this,HomeActivity.class);
+                    intent.putExtra("name",name_text);
+                    intent.putExtra("phone",phone_text);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
