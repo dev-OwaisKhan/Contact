@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int id = contact.getId();
             Intent intent =  new Intent(context, ContactView.class);
             intent.putExtra("name", name );
-            intent.putExtra("phone", name );
+            intent.putExtra("phone", phone );
             intent.putExtra("id", id);
             context.startActivity(intent);
 
