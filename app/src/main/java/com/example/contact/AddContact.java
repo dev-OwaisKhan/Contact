@@ -56,6 +56,7 @@ public class AddContact extends AppCompatActivity {
                     Toast message = Toast.makeText(AddContact.this,"Contact Added",Toast.LENGTH_SHORT);
                     message.show();
                     Intent intent = new Intent(AddContact.this,HomeActivity.class);
+                    intent.putExtra("bol_added",true);
                     intent.putExtra("name",name_text);
                     intent.putExtra("phone",phone_text);
                     startActivity(intent);
@@ -66,6 +67,9 @@ public class AddContact extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(AddContact.this,HomeActivity.class);
+                intent.putExtra("check",false);
+                startActivity(intent);
                 finish();
             }
         });

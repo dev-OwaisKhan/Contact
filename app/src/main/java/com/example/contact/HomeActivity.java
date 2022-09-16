@@ -68,12 +68,31 @@ public class HomeActivity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
+
+                boolean bol_added,bol_delete;
+                int index;
+
                 Intent intent = new Intent (HomeActivity.this, AddContact.class);
                 startActivity(intent);
+
                 added_contact.setName(getIntent().getStringExtra("name"));
                 added_contact.setPhone(getIntent().getStringExtra("phone"));
+                bol_added = getIntent().getBooleanExtra("bol_added",false);
+
+                bol_delete = getIntent().getBooleanExtra("bol_delete",false);
+                index = getIntent().getIntExtra("contact_index",1);
+
+                if (bol_added)
+                {
                 contactArrayList.add(added_contact);
                 recyclerViewAdapter.notifyDataSetChanged();
+                }
+
+                if(bol_delete)
+                {
+                    contactArrayList.remove(index);
+                    recyclerViewAdapter.notifyDataSetChanged();
+                }
             }
         });
 

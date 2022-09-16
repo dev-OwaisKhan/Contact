@@ -64,15 +64,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
+
             int index = this.getAdapterPosition();
             Contact contact = contactList.get(index);
             String name = contact.getName();
             String phone = contact.getPhone();
             int id = contact.getId();
+
+
             Intent intent =  new Intent(context, ContactView.class);
+
             intent.putExtra("name", name );
             intent.putExtra("phone", phone );
             intent.putExtra("id", id);
+            intent.putExtra("index",index);
+
             context.startActivity(intent);
 
         }
