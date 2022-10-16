@@ -31,15 +31,14 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Contact> contactArrayList;
     Contact added_contact = new Contact();
-
+    boolean test = false;
+    // Object of the DBHandler class to perform all the DataBase Operations
+    DBHandler obj = new DBHandler(HomeActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // Object of the DBHandler class to perform all the DataBase Operations
-        DBHandler obj = new DBHandler(HomeActivity.this);
 
         // Initializing the button and the recyclerView
         add = findViewById(R.id.home_add);
@@ -48,13 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        contactArrayList = new ArrayList<>();
-        List<Contact> contactList = obj.all_contact();
-        contactArrayList.addAll(contactList);
-
-
-        recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this, contactArrayList);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        setRecyclerView();
 
 
         if (contactArrayList.size() == 0)
@@ -96,6 +89,32 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void setRecyclerView()
+    {
+        contactArrayList = new ArrayList<>();
+        List<Contact> contactList = obj.all_contact();
+        contactArrayList.addAll(contactList);
+
+
+        recyclerViewAdapter = new RecyclerViewAdapter(HomeActivity.this, contactArrayList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        test = true;
+
+    }
+
+        @Override
+    protected void onResume() {
+        super.onResume();
+            if (test)
+            {
+                setRecyclerView();
+            }
     }
 }
